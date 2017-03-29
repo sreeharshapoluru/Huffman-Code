@@ -1,11 +1,12 @@
 
 import java.io.*;
+import java.util.*;
 
 public class GenerateFreqTable 
 {
-	public int [] generateFreqTable(String fileName)
+	public HashMap<Integer,Long> generateFreqTable(String fileName)
 	{
-		int[] countArray = new int[1000000];
+		HashMap<Integer,Long> countHash = new HashMap<Integer,Long>();
 		try
 		{
 			// Reading the input from the arguments
@@ -17,7 +18,17 @@ public class GenerateFreqTable
 			while((inputStr=bufferedInput.readLine())!= null)
 			{
 				int input = Integer.parseInt(inputStr);
-				countArray[input]+=1;
+				if(!countHash.containsKey(input))
+				{
+					countHash.put(input,(long)1);
+				}
+				else
+				{
+					long countValue = countHash.get(input);
+					countValue++;
+					countHash.put(input, countValue);
+				}
+				
 			}
 			
 			bufferedInput.close();
@@ -33,6 +44,6 @@ public class GenerateFreqTable
 			exp.printStackTrace();
 		}
 
-		return countArray;
+		return countHash;
 	}
 }
