@@ -5,8 +5,17 @@ public class Encoder
 	{
 		GenerateFreqTable generateFT = new GenerateFreqTable();
 		HashMap<Integer,Long> freq_table = generateFT.generateFreqTable(args[0]);
-		BinaryHeap binaryHeap = new BinaryHeap();
-		binaryHeap.generateBinaryHeap(freq_table);
+		
+		// Binary Heap
+		
+//		BinaryHeap binaryHeap = new BinaryHeap();
+//		binaryHeap.generateBinaryHeap(freq_table);
+		
+		// 4-way Heap
+		
+		FourWayHeap fourWayHeap = new FourWayHeap();
+		fourWayHeap.generateFourWayHeap(freq_table);
+		
 	}
 
 }

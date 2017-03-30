@@ -61,7 +61,7 @@ public class BinaryHeap
 			{
 				Collections.swap(freq_tableArray, parent, child);
 				child=parent;
-				parent = (child-2)/2;
+				parent = ((child+1)/2)-1;
 			}
 			//			System.out.println("after minheapifying again");
 			//			for(int i = 0; i < freq_tableArray.size(); i++)
