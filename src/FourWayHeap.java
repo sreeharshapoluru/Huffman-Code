@@ -45,7 +45,7 @@ public class FourWayHeap
 		}
 
 
-		while(freq_tableArray.size()!=4)
+		while(freq_tableArray.size()>4)
 		{
 			Node nodeObject1 = new Node();
 			Node nodeObject2 = new Node();

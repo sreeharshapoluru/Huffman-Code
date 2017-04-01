@@ -13,48 +13,48 @@ public class BinaryHeap
 			freq_tableArray.add(nodeObject);
 		}
 
-		//		System.out.println("after creating array list");
-		//
-		//		for(int i = 0; i < freq_tableArray.size(); i++)
-		//		{
-		//			System.out.println(freq_tableArray.get(i).data + "---->"+ freq_tableArray.get(i).frequency);
-		//		}
+//				System.out.println("after creating array list");
+//		
+//				for(int i = 0; i < freq_tableArray.size(); i++)
+//				{
+//					System.out.println(freq_tableArray.get(i).data + "---->"+ freq_tableArray.get(i).frequency);
+//				}
 
 
 		for(int i= (freq_tableArray.size()/2)-1;i>=0;i--)
 		{
 			minHeapify(freq_tableArray,i);
 		}
-		//		System.out.println("after minheapifying array list");
-		//		for(int i = 0; i < freq_tableArray.size(); i++)
-		//		{
-		//			System.out.println(freq_tableArray.get(i).data + "---->"+ freq_tableArray.get(i).frequency);
-		//		}
+//				System.out.println("after minheapifying array list");
+//				for(int i = 0; i < freq_tableArray.size(); i++)
+//				{
+//					System.out.println(freq_tableArray.get(i).data + "---->"+ freq_tableArray.get(i).frequency);
+//				}
 		while(freq_tableArray.size()!=1)
 		{
 			Node nodeObject1 = new Node();
 			Node nodeObject2 = new Node();
 			Node nodeObject3 = new Node();
 			nodeObject1 = extractMin(freq_tableArray);
-			//			System.out.println("extractmin 1");
-			//			for(int i = 0; i < freq_tableArray.size(); i++)
-			//			{
-			//				System.out.println(freq_tableArray.get(i).data + "---->"+ freq_tableArray.get(i).frequency);
-			//			}
+//						System.out.println("extractmin 1");
+//						for(int i = 0; i < freq_tableArray.size(); i++)
+//						{
+//							System.out.println(freq_tableArray.get(i).data + "---->"+ freq_tableArray.get(i).frequency);
+//						}
 			nodeObject2 = extractMin(freq_tableArray);
-			//			System.out.println("extractmin 2");
-			//			for(int i = 0; i < freq_tableArray.size(); i++)
-			//			{
-			//				System.out.println(freq_tableArray.get(i).data + "---->"+ freq_tableArray.get(i).frequency);
-			//			}
+//						System.out.println("extractmin 2");
+//						for(int i = 0; i < freq_tableArray.size(); i++)
+//						{
+//							System.out.println(freq_tableArray.get(i).data + "---->"+ freq_tableArray.get(i).frequency);
+//						}
 			nodeObject3.data = 0;
 			nodeObject3.frequency = nodeObject1.frequency+nodeObject2.frequency;
 			freq_tableArray.add(nodeObject3);
-			//			System.out.println("after adding new node");
-			//			for(int i = 0; i < freq_tableArray.size(); i++)
-			//			{
-			//				System.out.println(freq_tableArray.get(i).data + "---->"+ freq_tableArray.get(i).frequency);
-			//			}
+//						System.out.println("after adding new node");
+//						for(int i = 0; i < freq_tableArray.size(); i++)
+//						{
+//							System.out.println(freq_tableArray.get(i).data + "---->"+ freq_tableArray.get(i).frequency);
+//						}
 			int parent = (freq_tableArray.size()/2)-1;
 			int child = (freq_tableArray.size())-1;
 			while(child >1 && freq_tableArray.get(parent).frequency > freq_tableArray.get(child).frequency )
@@ -63,12 +63,16 @@ public class BinaryHeap
 				child=parent;
 				parent = ((child+1)/2)-1;
 			}
-			//			System.out.println("after minheapifying again");
-			//			for(int i = 0; i < freq_tableArray.size(); i++)
-			//			{
-			//				System.out.println(freq_tableArray.get(i).data + "---->"+ freq_tableArray.get(i).frequency);
-			//			}
-
+//						System.out.println("after minheapifying again");
+//						for(int i = 0; i < freq_tableArray.size(); i++)
+//						{
+//							System.out.println(freq_tableArray.get(i).data + "---->"+ freq_tableArray.get(i).frequency);
+//						}
+//
+		}
+		for(int i = 0; i < freq_tableArray.size(); i++)
+		{
+			System.out.println(freq_tableArray.get(i).data + "---->"+ freq_tableArray.get(i).frequency);
 		}
 
 	}
