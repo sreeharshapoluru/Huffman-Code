@@ -13,8 +13,14 @@ public class Encoder
 		
 		// 4-way Heap
 		
-		FourWayHeap fourWayHeap = new FourWayHeap();
-		fourWayHeap.generateFourWayHeap(freq_table);
+//		FourWayHeap fourWayHeap = new FourWayHeap();
+//		fourWayHeap.generateFourWayHeap(freq_table);
+		
+		// Pairing Heap
+		
+		PairingHeap pairingHeap = new PairingHeap();
+		pairingHeap.generatePairingHeap(freq_table);
+		
 		
 	}
 

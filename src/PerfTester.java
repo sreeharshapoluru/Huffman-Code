@@ -12,22 +12,32 @@ public class PerfTester {
 		
 //		// Binary Heap
 		BinaryHeap binaryHeap = new BinaryHeap();
-		long startTime = java.lang.System.nanoTime();
+		long startTimeBinary = java.lang.System.nanoTime();
 		for (int runCount = 0;runCount<10;runCount++)
 		{
 			binaryHeap.generateBinaryHeap(freq_table);
 		}
 		
-		long endTime = java.lang.System.nanoTime();
-		System.out.println("The elapsed time for Binary Heap is "+  (float)(endTime-startTime)/1000000000 + "s");
+		long endTimeBinary = java.lang.System.nanoTime();
+		System.out.println("The elapsed time for Binary Heap is "+  (float)(endTimeBinary-startTimeBinary)/1000000000 + "s");
 //	
 		
 		
 		// 4-way Heap
-		
-		
 	
-	
+			FourWayHeap fourWayHeap = new FourWayHeap();
+				long startTimeFourWay = java.lang.System.nanoTime();
+				for (int runCount = 0;runCount<10;runCount++)
+				{
+					fourWayHeap.generateFourWayHeap(freq_table);
+				}
+				
+				long endTimeFourWay= java.lang.System.nanoTime();
+				System.out.println("The elapsed time for Four Way Heap is "+  (float)(endTimeFourWay-startTimeFourWay)/1000000000 + "s");
+		
+	  // Pairing Heap
+				
+				
 	
 	
 	

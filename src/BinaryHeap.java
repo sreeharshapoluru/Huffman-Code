@@ -1,8 +1,9 @@
 import java.util.*;
 public class BinaryHeap 
 {
-	public void generateBinaryHeap( HashMap<Integer,Long> hash)
+	public void  generateBinaryHeap( HashMap<Integer,Long> hash)
 	{
+		Testing test = new Testing();
 
 		ArrayList<Node> freq_tableArray = new ArrayList<Node>();
 		for(Map.Entry<Integer,Long> entry : hash.entrySet())
@@ -13,48 +14,36 @@ public class BinaryHeap
 			freq_tableArray.add(nodeObject);
 		}
 
-//				System.out.println("after creating array list");
-//		
-//				for(int i = 0; i < freq_tableArray.size(); i++)
-//				{
-//					System.out.println(freq_tableArray.get(i).data + "---->"+ freq_tableArray.get(i).frequency);
-//				}
+//		System.out.println("after creating array list");
+//		test.displayBinary(freq_tableArray);
+
 
 
 		for(int i= (freq_tableArray.size()/2)-1;i>=0;i--)
 		{
 			minHeapify(freq_tableArray,i);
 		}
-//				System.out.println("after minheapifying array list");
-//				for(int i = 0; i < freq_tableArray.size(); i++)
-//				{
-//					System.out.println(freq_tableArray.get(i).data + "---->"+ freq_tableArray.get(i).frequency);
-//				}
+//		System.out.println("after minheapifying array list");
+//		test.displayBinary(freq_tableArray);
+
 		while(freq_tableArray.size()!=1)
 		{
 			Node nodeObject1 = new Node();
 			Node nodeObject2 = new Node();
-			Node nodeObject3 = new Node();
+
 			nodeObject1 = extractMin(freq_tableArray);
-//						System.out.println("extractmin 1");
-//						for(int i = 0; i < freq_tableArray.size(); i++)
-//						{
-//							System.out.println(freq_tableArray.get(i).data + "---->"+ freq_tableArray.get(i).frequency);
-//						}
+//			System.out.println("extractmin 1");
+//			test.displayBinary(freq_tableArray);
+			
 			nodeObject2 = extractMin(freq_tableArray);
-//						System.out.println("extractmin 2");
-//						for(int i = 0; i < freq_tableArray.size(); i++)
-//						{
-//							System.out.println(freq_tableArray.get(i).data + "---->"+ freq_tableArray.get(i).frequency);
-//						}
-			nodeObject3.data = 0;
-			nodeObject3.frequency = nodeObject1.frequency+nodeObject2.frequency;
+//			System.out.println("extractmin 2");
+//			test.displayBinary(freq_tableArray);
+
+			Node nodeObject3 = new Node(nodeObject1,nodeObject2);
 			freq_tableArray.add(nodeObject3);
-//						System.out.println("after adding new node");
-//						for(int i = 0; i < freq_tableArray.size(); i++)
-//						{
-//							System.out.println(freq_tableArray.get(i).data + "---->"+ freq_tableArray.get(i).frequency);
-//						}
+//			System.out.println("after adding new node");
+//			test.displayBinary(freq_tableArray);
+
 			int parent = (freq_tableArray.size()/2)-1;
 			int child = (freq_tableArray.size())-1;
 			while(child >1 && freq_tableArray.get(parent).frequency > freq_tableArray.get(child).frequency )
@@ -63,18 +52,15 @@ public class BinaryHeap
 				child=parent;
 				parent = ((child+1)/2)-1;
 			}
-//						System.out.println("after minheapifying again");
-//						for(int i = 0; i < freq_tableArray.size(); i++)
-//						{
-//							System.out.println(freq_tableArray.get(i).data + "---->"+ freq_tableArray.get(i).frequency);
-//						}
-//
-		}
-		for(int i = 0; i < freq_tableArray.size(); i++)
-		{
-			System.out.println(freq_tableArray.get(i).data + "---->"+ freq_tableArray.get(i).frequency);
-		}
+//			System.out.println("after minheapifying again");
+//			test.displayBinary(freq_tableArray);
 
+
+		}
+		System.out.println("Final output");
+		test.displayBinary(freq_tableArray);
+		
+		
 	}
 	public void minHeapify(ArrayList<Node> arrayList, int i)
 	{
