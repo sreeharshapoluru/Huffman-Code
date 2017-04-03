@@ -18,6 +18,11 @@ public class Node {
 		this.rightChild = object2;
 		
 	}
+	public Node(int data, long frequency)
+	{
+		this.data = data;
+		this.frequency = frequency;
+	}
 	
 
 }

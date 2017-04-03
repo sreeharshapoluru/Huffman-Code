@@ -82,7 +82,7 @@ public class FourWayHeap
 //				{
 //					System.out.println(entry.getKey() + "--" + entry.getValue());
 //				}
-				this.generateFiles(codeTable, fileName);
+				this.generateEncoderFiles(codeTable, fileName);
 
 			}
 
@@ -162,7 +162,7 @@ public class FourWayHeap
 		}
 	}
 
-	public void generateFiles(HashMap<Integer,StringBuilder> hash, String fileName)
+	public void generateEncoderFiles(HashMap<Integer,StringBuilder> hash, String fileName)
 	{
 
 			//System.out.println("in write");
