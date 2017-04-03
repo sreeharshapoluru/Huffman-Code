@@ -28,27 +28,31 @@ public class GenerateDecodedFiles
 						{
 							if(codeArray.get(i)== 0)
 							{
-								if(tempPointer.leftChild == null)
+								if(tempPointer.leftChild != null)
+								
+									tempPointer = tempPointer.leftChild;
+								
+								else
 								{
 									if(i != codeArray.size()-1)
 										tempPointer.leftChild = new Node(-1,-1);
 									else
 										tempPointer.leftChild = new Node(Integer.parseInt(code[0]),-1);
 								}
-								else
-									tempPointer = tempPointer.leftChild;
+									
 							}
 							else
 							{
 								if(tempPointer.rightChild != null)
+									tempPointer = tempPointer.rightChild;
+								else
 								{
 									if(i == codeArray.size()-1)
 										tempPointer.rightChild = new Node(-1,-1);
 									else
 										tempPointer.rightChild = new Node(Integer.parseInt(code[0]),-1);
 								}
-								else
-									tempPointer = tempPointer.rightChild;
+									
 								
 							}
 						}
@@ -83,25 +87,48 @@ public class GenerateDecodedFiles
 		tempRoot = huffmanRoot;
 		FileInputStream fileInputStream = new FileInputStream(encodedBin);
 		FileOutputStream fileOutputStream = new FileOutputStream("/home/harsha/decoded.txt");
-		byte codeByte [] = null; 
-		fileInputStream.read(codeByte);
-		for(int i =0;i<codeByte.length;i++)
+		
+		
+		//readiong from encoded.bin
+		
+	    byte []  codeByte = new byte[fileInputStream.available()];
+	    fileInputStream.read(codeByte);
+	    fileInputStream.close();
+	    StringBuilder codeString = new StringBuilder();
+	    for(int i=0; i<codeByte.length;i++)
+	    {
+	    	byte individualByte = codeByte[i];
+	    	codeString.append(String.format("%8s", Integer.toBinaryString(individualByte & 0xFF)).replace(' ', '0'));
+	    }
+	    System.out.println(codeString);
+	    
+	
+		// -------------
+		for(int i =0;i< codeString.length();i++)
 		{
-			if(codeByte[i] == 0)
+			if(codeString.charAt(i) == 0)
 			{
 				tempRoot = tempRoot.leftChild;
 				if(tempRoot.leftChild == null && tempRoot.rightChild == null)
 				{
+					System.out.println(tempRoot.data);
 					fileOutputStream.write(tempRoot.data);
+					tempRoot = huffmanRoot;
 				}
 				
 			}
-			if(codeByte[i] == 1)
+			if(codeString.charAt(i) == 1)
 			{
 				tempRoot = tempRoot.rightChild;
 				if(tempRoot.rightChild == null && tempRoot.leftChild == null)
+				{
+					System.out.println(tempRoot.data);
+					fileOutputStream.write(tempRoot.data);
+					tempRoot = huffmanRoot;
+				}
 			}
 		}
+	//--------------
 		
 		
 		}
