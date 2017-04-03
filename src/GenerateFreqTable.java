@@ -6,6 +6,7 @@ public class GenerateFreqTable
 {
 	public HashMap<Integer,Long> generateFreqTable(String fileName)
 	{
+//		System.out.println("Hello World");
 		HashMap<Integer,Long> countHash = new HashMap<Integer,Long>();
 		try
 		{
@@ -15,15 +16,20 @@ public class GenerateFreqTable
 
 			//Storing frequency count
 			String inputStr;
+//			System.out.println("Hello World");
 			while((inputStr=bufferedInput.readLine())!= null)
 			{
+				inputStr = inputStr.replaceAll("\\s+","");
+				//System.out.println("Hello World");
 				int input = Integer.parseInt(inputStr);
 				if(!countHash.containsKey(input))
 				{
+					// System.out.println(input);
 					countHash.put(input,(long)1);
 				}
 				else
 				{
+					// System.out.println("Existing Input"+input);
 					long countValue = countHash.get(input);
 					countValue++;
 					countHash.put(input, countValue);

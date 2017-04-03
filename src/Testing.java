@@ -11,6 +11,7 @@ public class Testing {
 	
 	public void displayFourWay(ArrayList<Node> arrayList)
 	{
+		System.out.println("in fourway");
 		for(int i = 3; i < arrayList.size(); i++)
 			{
 				System.out.println(arrayList.get(i).data + "---->"+ arrayList.get(i).frequency);

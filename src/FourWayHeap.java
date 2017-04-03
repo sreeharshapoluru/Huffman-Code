@@ -6,17 +6,18 @@ public class FourWayHeap
 {
 	public void generateFourWayHeap(HashMap<Integer,Long> hash,String fileName)
 	{
+		
 		Testing test = new Testing();
 		ArrayList<Node> freq_tableArray = new ArrayList<Node>();
 
 		//		Adding 3 dummy elements into the array list
 		for(int i=0;i<3;i++)
 		{
+			// System.out.println("in dummy");
 			Node dummyObject= new Node();
 			dummyObject.data = 0;
 			dummyObject.frequency=0;
 			freq_tableArray.add(dummyObject);
-
 		}
 
 		// Adding the elements of hash map to array list 
@@ -25,11 +26,13 @@ public class FourWayHeap
 			Node nodeObject = new Node();
 			nodeObject.data = entry.getKey();
 			nodeObject.frequency = entry.getValue();
+			// System.out.println(nodeObject.data+ "   " + nodeObject.frequency);
 			freq_tableArray.add(nodeObject);
 		}
 		
-				System.out.println("after creating array list");
-				test.displayFourWay(freq_tableArray);
+//				System.out.println("after creating array list");
+//				test.displayFourWay(freq_tableArray);
+//				System.out.println(freq_tableArray.size());
 
 		// Minheapifying the arraylist
 		for(int i= (((freq_tableArray.size()-1)/4)+2);i>=3;i--)
@@ -37,26 +40,28 @@ public class FourWayHeap
 			minHeapify(freq_tableArray,i);
 		}
 
-				System.out.println("after minheapifying array list");
-				test.displayFourWay(freq_tableArray);
+//				System.out.println("after minheapifying array list");
+//				test.displayFourWay(freq_tableArray);
+//				System.out.println(freq_tableArray.size());
 
 		// Creating the Huffman tree
 		while(freq_tableArray.size()>4)
 		{
+			//System.out.println("in huffman tree");
 			Node nodeObject1 = new Node();
 			Node nodeObject2 = new Node();
 
 
 			nodeObject1 = extractMin(freq_tableArray);
-						System.out.println("extractmin 1");
-						test.displayFourWay(freq_tableArray);
+						//System.out.println("extractmin 1");
+						//test.displayFourWay(freq_tableArray);
 			nodeObject2 = extractMin(freq_tableArray);
-						System.out.println("extractmin 2");
-						test.displayFourWay(freq_tableArray);
+						//System.out.println("extractmin 2");
+						//test.displayFourWay(freq_tableArray);
 			Node nodeObject3 = new Node(nodeObject1,nodeObject2);
 			freq_tableArray.add(nodeObject3);
-						System.out.println("after adding new node");
-						test.displayFourWay(freq_tableArray);
+						//System.out.println("after adding new node");
+						//test.displayFourWay(freq_tableArray);
 			int parent = ((freq_tableArray.size()-1)/4)+2;
 			int child = (freq_tableArray.size())-1;
 			while(child >3 && freq_tableArray.get(parent).frequency > freq_tableArray.get(child).frequency )
@@ -65,18 +70,18 @@ public class FourWayHeap
 				child=parent;
 				parent = ((child)/4)+2;
 			}
-						System.out.println("after minheapifying again");
-						test.displayFourWay(freq_tableArray);
+//						System.out.println("after minheapifying again");
+//						test.displayFourWay(freq_tableArray);
 
 			if(freq_tableArray.size() == 4)
 			{
 				ArrayList<String> nodeCode = new ArrayList<String>();
 				HashMap<Integer,StringBuilder> codeTable = new HashMap<Integer,StringBuilder>();
 				this.generateCodeTable(codeTable,nodeCode,nodeObject3);
-				for(Map.Entry<Integer, StringBuilder> entry : codeTable.entrySet())
-				{
-					System.out.println(entry.getKey() + "--" + entry.getValue());
-				}
+//				for(Map.Entry<Integer, StringBuilder> entry : codeTable.entrySet())
+//				{
+//					System.out.println(entry.getKey() + "--" + entry.getValue());
+//				}
 				this.generateFiles(codeTable, fileName);
 
 			}
@@ -131,7 +136,7 @@ public class FourWayHeap
 	public void  generateCodeTable(HashMap<Integer,StringBuilder> hash, ArrayList<String> arrayList, Node root )
 	{
 
-		System.out.println("in generate codetable");
+		//System.out.println("in generate codetable");
 
 		if(root == null)
 			return;
@@ -160,7 +165,7 @@ public class FourWayHeap
 	public void generateFiles(HashMap<Integer,StringBuilder> hash, String fileName)
 	{
 
-			System.out.println("in write");
+			//System.out.println("in write");
 
 		try
 
@@ -177,7 +182,7 @@ public class FourWayHeap
 			FileReader inputFile = new FileReader(fileName); 
 			BufferedReader bufferedInput = new BufferedReader(inputFile);
 			
-			FileOutputStream fileOutputStream = new FileOutputStream(fileName);
+			FileOutputStream fileOutputStream = new FileOutputStream("/home/harsha/encoded.bin");
 			
 
 
@@ -188,11 +193,11 @@ public class FourWayHeap
 				stringBuilder.append(hash.get(Integer.parseInt(inputStr)));
 			}
 
-			System.out.println(stringBuilder);
+			//System.out.println(stringBuilder);
 			for(int i =0; i<stringBuilder.length();i+=8)
 			{
 				String codeString = stringBuilder.substring(i, i+8);
-				System.out.println(codeString);
+				//System.out.println(codeString);
 				int integerCodeString = Integer.parseInt(codeString, 2);
 				fileOutputStream.write(integerCodeString);
 			}
