@@ -3,7 +3,7 @@ import java.util.*;
 
 public class PairingHeap 
 {
-	public void generatePairingHeap(HashMap<Integer,Long> hash)
+	public void generatePairingHeap(HashMap<Integer,Long> hash, String fileNames)
 	{
 		Testing test = new Testing();
 
@@ -29,23 +29,30 @@ public class PairingHeap
 		nodeObject3 = meldHeap(nodeObject1,nodeObject2);
 		
 		freq_tableArray.add(nodeObject3);
-		System.out.println("After adding the element");
-		test.displayPairing(freq_tableArray);
-		
-		
-		}
+//		System.out.println("After adding the element");
 //		test.displayPairing(freq_tableArray);
 		
+		}
+		test.displayPairing(freq_tableArray);
+		
 	
 		
 		
 		
 	}
 	
-	public void twoPassScheme()
-	{
-		
-	}
+//	public ArrayList<PairingHeapNode> twoPassScheme(ArrayList<PairingHeapNode> arrayList)
+//	{
+//		while(arrayList.size()>1)
+//		{
+//			PairingHeapNode nodeObject1 = arrayList.remove(arrayList.size()-1);
+//			PairingHeapNode nodeObject2 = arrayList.remove(arrayList.size()-1);
+//			PairingHeapNode nodeObject3 = meldHeap(nodeObject1, nodeObject2);
+//			
+//			
+//			
+//		}
+//	}
 	
 	
 	public PairingHeapNode  meldHeap(PairingHeapNode object1, PairingHeapNode object2)
@@ -78,7 +85,7 @@ public class PairingHeap
 		}
 			
 	}
-	public PairingHeapNode extractMin(ArrayList<PairingHeapNode> arrayList)
+	public void extractMin(ArrayList<PairingHeapNode> arrayList)
 	{
 		
 		

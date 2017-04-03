@@ -15,7 +15,7 @@ public class PerfTester {
 		long startTimeBinary = java.lang.System.nanoTime();
 		for (int runCount = 0;runCount<10;runCount++)
 		{
-			binaryHeap.generateBinaryHeap(freq_table);
+			binaryHeap.generateBinaryHeap(freq_table,args[0]);
 		}
 		
 		long endTimeBinary = java.lang.System.nanoTime();
@@ -29,7 +29,7 @@ public class PerfTester {
 				long startTimeFourWay = java.lang.System.nanoTime();
 				for (int runCount = 0;runCount<10;runCount++)
 				{
-					fourWayHeap.generateFourWayHeap(freq_table);
+					fourWayHeap.generateFourWayHeap(freq_table,args[0]);
 				}
 				
 				long endTimeFourWay= java.lang.System.nanoTime();

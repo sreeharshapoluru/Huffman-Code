@@ -9,17 +9,17 @@ public class Encoder
 		// Binary Heap
 		
 //		BinaryHeap binaryHeap = new BinaryHeap();
-//		binaryHeap.generateBinaryHeap(freq_table);
+//		binaryHeap.generateBinaryHeap(freq_table,args[0]);
 		
 		// 4-way Heap
 		
-//		FourWayHeap fourWayHeap = new FourWayHeap();
-//		fourWayHeap.generateFourWayHeap(freq_table);
+		FourWayHeap fourWayHeap = new FourWayHeap();
+		fourWayHeap.generateFourWayHeap(freq_table,args[0]);
 		
 		// Pairing Heap
-		
-		PairingHeap pairingHeap = new PairingHeap();
-		pairingHeap.generatePairingHeap(freq_table);
+//		
+//		PairingHeap pairingHeap = new PairingHeap();
+//		pairingHeap.generatePairingHeap(freq_table,args[0]);
 		
 		
 	}

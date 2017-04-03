@@ -1,7 +1,7 @@
 import java.util.*;
 public class BinaryHeap 
 {
-	public void  generateBinaryHeap( HashMap<Integer,Long> hash)
+	public void  generateBinaryHeap( HashMap<Integer,Long> hash,String fileName)
 	{
 		Testing test = new Testing();
 

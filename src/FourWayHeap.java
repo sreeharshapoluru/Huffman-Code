@@ -1,9 +1,10 @@
+import java.io.*;
 import java.util.*;
 
 
 public class FourWayHeap 
 {
-	public void generateFourWayHeap(HashMap<Integer,Long> hash)
+	public void generateFourWayHeap(HashMap<Integer,Long> hash,String fileName)
 	{
 		Testing test = new Testing();
 		ArrayList<Node> freq_tableArray = new ArrayList<Node>();
@@ -26,35 +27,36 @@ public class FourWayHeap
 			nodeObject.frequency = entry.getValue();
 			freq_tableArray.add(nodeObject);
 		}
-//		System.out.println("after creating array list");
-//		test.displayFourWay(freq_tableArray);
+		
+				System.out.println("after creating array list");
+				test.displayFourWay(freq_tableArray);
 
-
+		// Minheapifying the arraylist
 		for(int i= (((freq_tableArray.size()-1)/4)+2);i>=3;i--)
 		{
 			minHeapify(freq_tableArray,i);
 		}
 
-//		System.out.println("after minheapifying array list");
-//		test.displayFourWay(freq_tableArray);
+				System.out.println("after minheapifying array list");
+				test.displayFourWay(freq_tableArray);
 
-
+		// Creating the Huffman tree
 		while(freq_tableArray.size()>4)
 		{
 			Node nodeObject1 = new Node();
 			Node nodeObject2 = new Node();
-			
+
 
 			nodeObject1 = extractMin(freq_tableArray);
-//			System.out.println("extractmin 1");
-//			test.displayFourWay(freq_tableArray);
+						System.out.println("extractmin 1");
+						test.displayFourWay(freq_tableArray);
 			nodeObject2 = extractMin(freq_tableArray);
-//			System.out.println("extractmin 2");
-//			test.displayFourWay(freq_tableArray);
+						System.out.println("extractmin 2");
+						test.displayFourWay(freq_tableArray);
 			Node nodeObject3 = new Node(nodeObject1,nodeObject2);
 			freq_tableArray.add(nodeObject3);
-//			System.out.println("after adding new node");
-//			test.displayFourWay(freq_tableArray);
+						System.out.println("after adding new node");
+						test.displayFourWay(freq_tableArray);
 			int parent = ((freq_tableArray.size()-1)/4)+2;
 			int child = (freq_tableArray.size())-1;
 			while(child >3 && freq_tableArray.get(parent).frequency > freq_tableArray.get(child).frequency )
@@ -63,12 +65,25 @@ public class FourWayHeap
 				child=parent;
 				parent = ((child)/4)+2;
 			}
-//			System.out.println("after minheapifying again");
-//			test.displayFourWay(freq_tableArray);
+						System.out.println("after minheapifying again");
+						test.displayFourWay(freq_tableArray);
+
+			if(freq_tableArray.size() == 4)
+			{
+				ArrayList<String> nodeCode = new ArrayList<String>();
+				HashMap<Integer,StringBuilder> codeTable = new HashMap<Integer,StringBuilder>();
+				this.generateCodeTable(codeTable,nodeCode,nodeObject3);
+				for(Map.Entry<Integer, StringBuilder> entry : codeTable.entrySet())
+				{
+					System.out.println(entry.getKey() + "--" + entry.getValue());
+				}
+				this.generateFiles(codeTable, fileName);
+
+			}
+
 
 		}
-		System.out.println("Final output");
-		test.displayFourWay(freq_tableArray);
+
 
 
 	}
@@ -113,9 +128,90 @@ public class FourWayHeap
 
 	}
 
+	public void  generateCodeTable(HashMap<Integer,StringBuilder> hash, ArrayList<String> arrayList, Node root )
+	{
+
+		System.out.println("in generate codetable");
+
+		if(root == null)
+			return;
+		if(root.leftChild == null && root.rightChild == null )
+		{
+			StringBuilder code = new StringBuilder();
+			for(int i =0;i<arrayList.size();i++)
+			{
+				code.append(arrayList.get(i));
+
+			}
+			hash.put(root.data, code);
+		}
+		else
+		{
+			arrayList.add("0");
+			this.generateCodeTable(hash,arrayList, root.leftChild);
+			arrayList.set(arrayList.size()-1, "1");
+			this.generateCodeTable(hash,arrayList, root.rightChild);
+			arrayList.remove(arrayList.size()-1);
 
 
+		}
+	}
+
+	public void generateFiles(HashMap<Integer,StringBuilder> hash, String fileName)
+	{
+
+			System.out.println("in write");
+
+		try
+
+		{
+			// generating code_table.txt
+			PrintWriter printWriter = new PrintWriter("/home/harsha/code_table.txt", "UTF-8");
+			for(Map.Entry<Integer,StringBuilder> entry : hash.entrySet())
+			{
+				printWriter.println(entry.getKey() + " " + entry.getValue());
+			}
+			printWriter.close();
+
+			// generating encoded.bin file
+			FileReader inputFile = new FileReader(fileName); 
+			BufferedReader bufferedInput = new BufferedReader(inputFile);
+			
+			FileOutputStream fileOutputStream = new FileOutputStream(fileName);
+			
 
 
+			String inputStr;
+			StringBuilder stringBuilder = new StringBuilder();
+			while((inputStr=bufferedInput.readLine())!= null)
+			{
+				stringBuilder.append(hash.get(Integer.parseInt(inputStr)));
+			}
 
+			System.out.println(stringBuilder);
+			for(int i =0; i<stringBuilder.length();i+=8)
+			{
+				String codeString = stringBuilder.substring(i, i+8);
+				System.out.println(codeString);
+				int integerCodeString = Integer.parseInt(codeString, 2);
+				fileOutputStream.write(integerCodeString);
+			}
+			
+			bufferedInput.close();
+			fileOutputStream.close();
+
+		}
+		catch(FileNotFoundException exp)
+		{
+			System.out.println("File Not Found");
+			exp.printStackTrace();
+		}
+		catch(IOException exp)
+		{
+			System.out.println("Cannot read the file");
+			exp.printStackTrace();
+		}
+
+
+	}
 }
