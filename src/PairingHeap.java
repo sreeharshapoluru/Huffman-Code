@@ -3,97 +3,130 @@ import java.util.*;
 
 public class PairingHeap 
 {
+	PairingHeapNode pairingHeapRoot;
+	int nodesSize;
+	public PairingHeap()
+	{
+		pairingHeapRoot = null;
+		nodesSize = 0;
+		
+	}
 	public void generatePairingHeap(HashMap<Integer,Long> hash, String fileNames)
 	{
+		
 		Testing test = new Testing();
 
-		ArrayList<PairingHeapNode> freq_tableArray = new ArrayList<PairingHeapNode>();
+		ArrayList<Node> freq_tableArray = new ArrayList<Node>();
 		for(Map.Entry<Integer,Long> entry : hash.entrySet())
 		{
-			PairingHeapNode nodeObject = new PairingHeapNode();
-			nodeObject.dataNode.data = entry.getKey();
-			nodeObject.dataNode.frequency = entry.getValue();
+			Node nodeObject = new Node();
+			nodeObject.data = entry.getKey();
+			nodeObject.frequency = entry.getValue();
 			freq_tableArray.add(nodeObject);
 //			System.out.println("After inserting an element");
 //			test.displayPairing(freq_tableArray);
 		}
-	
 		
-		while(freq_tableArray.size()>1)
+		
+		for(int i=0;i<freq_tableArray.size();i++)
 		{
-		PairingHeapNode nodeObject1 = new PairingHeapNode();
-		PairingHeapNode nodeObject2 = new PairingHeapNode();
-		PairingHeapNode nodeObject3 = new PairingHeapNode();
-		nodeObject1= freq_tableArray.remove(0);
-		nodeObject2 = freq_tableArray.remove(0);
-		nodeObject3 = meldHeap(nodeObject1,nodeObject2);
-		
-		freq_tableArray.add(nodeObject3);
-//		System.out.println("After adding the element");
-//		test.displayPairing(freq_tableArray);
-		
+			Node tempNode = new Node();
+			PairingHeapNode tempPairingHeapNode = new PairingHeapNode();
+			tempNode.data = freq_tableArray.get(i).data;
+			tempNode.frequency = freq_tableArray.get(i).frequency;
+			tempPairingHeapNode.dataNode = tempNode;
+			this.meldHeap(tempPairingHeapNode);
 		}
-		test.displayPairing(freq_tableArray);
-		
+		while(nodesSize >1 )
+		{
+			Node nodeObject1 = new Node();
+			Node nodeObject2 = new Node();
+			PairingHeapNode pairingHeapNodeObject = new PairingHeapNode();
+			Node nodeObject3 = new Node();
+			nodeObject1 = this.extractMin();
+			nodeObject2 = this.extractMin();
+			long freq = nodeObject1.frequency+nodeObject2.frequency;
+			nodeObject3.frequency = freq;
+			nodeObject3.data =-1;
+			pairingHeapNodeObject.dataNode = nodeObject3;
+			this.meldHeap(pairingHeapNodeObject);
+		}
 	
 		
 		
 		
 	}
 	
-//	public ArrayList<PairingHeapNode> twoPassScheme(ArrayList<PairingHeapNode> arrayList)
-//	{
-//		while(arrayList.size()>1)
-//		{
-//			PairingHeapNode nodeObject1 = arrayList.remove(arrayList.size()-1);
-//			PairingHeapNode nodeObject2 = arrayList.remove(arrayList.size()-1);
-//			PairingHeapNode nodeObject3 = meldHeap(nodeObject1, nodeObject2);
-//			
-//			
-//			
-//		}
-//	}
-	
-	
-	public PairingHeapNode  meldHeap(PairingHeapNode object1, PairingHeapNode object2)
+	public   void meldHeap(PairingHeapNode nodeObject)
 	{
-		if(object1.dataNode.frequency < object2.dataNode.frequency)
+		if(pairingHeapRoot == null)
+				pairingHeapRoot = nodeObject;
+		
+		else if(pairingHeapRoot.dataNode.frequency< nodeObject.dataNode.frequency)
 		{
-			if (object1.child != null)
-			{
-			object1.child.leftSibling = object2;
-			object2.rightSibling = object1.child;
-			
-			}
-			
-				object1.child = object2;
-				object2.leftSibling = object1;
-				return object1;
-				
-			
+			pairingHeapRoot.children.add(nodeObject);
 		}
 		else
 		{
-			if (object2.child != null)
-			{
-			object2.child.leftSibling = object1;
-			object1.rightSibling = object2.child;
-			}
-				object2.child = object1;
-				object1.leftSibling = object2;
-				return object2;
+			nodeObject.children.add(pairingHeapRoot);
+			pairingHeapRoot = nodeObject;
 		}
+		nodesSize++;
+	
 			
 	}
-	public void extractMin(ArrayList<PairingHeapNode> arrayList)
+	public Node extractMin()
 	{
-		
-		
-	}
-	public void minHeapify(ArrayList<PairingHeapNode> arrayList, int i)
-	{
+		//System.out.println(nodesSize);
+		Node minNode = pairingHeapRoot.dataNode;
+		ArrayList<PairingHeapNode> tempArrayList = new ArrayList<PairingHeapNode>();
+		for(int i=pairingHeapRoot.children.size()-1;i>0;i=i-2)
+		{
+			if(pairingHeapRoot.children.get(i).dataNode.frequency > pairingHeapRoot.children.get(i-1).dataNode.frequency)
+			{
+				tempArrayList.add(pairingHeapRoot.children.get(i-1));
+				pairingHeapRoot.children.get(i-1).children.add(pairingHeapRoot.children.get(i));
+			}
+			else
+			{
+				tempArrayList.add(pairingHeapRoot.children.get(i));
+				pairingHeapRoot.children.get(i).children.add(pairingHeapRoot.children.get(i-1));
+			}
+			pairingHeapRoot.children.remove(pairingHeapRoot.children.size()-1);
+			pairingHeapRoot.children.remove(pairingHeapRoot.children.size()-1);
+			
+		}
+			if(pairingHeapRoot.children.size()>0)
+			{
+				tempArrayList.add(pairingHeapRoot.children.get(pairingHeapRoot.children.size()-1));
+				pairingHeapRoot.children.remove(pairingHeapRoot.children.size()-1);
+				
+			}
+			PairingHeapNode tempRoot = null;
+			//System.out.println("temparray size"+ tempArrayList.size());
+			if(tempArrayList.size()>0)
+			{
+				tempRoot = tempArrayList.get(tempArrayList.size()-1);
+				for(int i=tempArrayList.size()-2;i>=0;i--)
+				{
+					if(tempArrayList.get(i).dataNode.frequency > tempRoot.dataNode.frequency)
+						tempRoot.children.add(tempArrayList.get(i));
+					else
+					{
+						tempArrayList.get(i).children.add(tempRoot);
+						tempRoot = tempArrayList.get(i);
+					}
+				}
+			}
+			this.pairingHeapRoot = tempRoot;
+			nodesSize--;
+			return minNode;
+			
+		}
+	
 		
 	}
 	
+	
 
-}
+

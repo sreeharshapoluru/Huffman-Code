@@ -25,21 +25,30 @@ public class PerfTester {
 		
 		// 4-way Heap
 	
-			FourWayHeap fourWayHeap = new FourWayHeap();
-				long startTimeFourWay = java.lang.System.nanoTime();
-			for (int runCount = 0;runCount<10;runCount++)
-			{
-					fourWayHeap.generateFourWayHeap(freq_table,args[0]);
-			}
-				
-				long endTimeFourWay= java.lang.System.nanoTime();
-				System.out.println("The elapsed time for Four Way Heap encoding is "+  (float)(endTimeFourWay-startTimeFourWay)/1000000000 + "s");
+//			FourWayHeap fourWayHeap = new FourWayHeap();
+//				long startTimeFourWay = java.lang.System.nanoTime();
+//			for (int runCount = 0;runCount<10;runCount++)
+//			{
+//					fourWayHeap.generateFourWayHeap(freq_table,args[0]);
+//			}
+//				
+//				long endTimeFourWay= java.lang.System.nanoTime();
+//				System.out.println("The elapsed time for Four Way Heap encoding is "+  (float)(endTimeFourWay-startTimeFourWay)/1000000000 + "s");
 		
 				
 
 				
 				
 				// Pairing Heap
+				PairingHeap pairingHeap = new PairingHeap();
+				long startTimePairignHeap = java.lang.System.nanoTime();
+				for (int runCount = 0;runCount<10;runCount++)
+				{
+					pairingHeap.generatePairingHeap(freq_table,args[0]);
+				}
+				long endTimePairingHeap= java.lang.System.nanoTime();
+				System.out.println("The elapsed time for Pairing Heap is "+  (float)(endTimePairingHeap-startTimePairignHeap)/1000000000 + "s");
+				
 				
 				
 				

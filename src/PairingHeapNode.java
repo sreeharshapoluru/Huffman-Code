@@ -1,17 +1,15 @@
+import java.util.*;
 
 public class PairingHeapNode 
 {
-	PairingHeapNode child;
-	PairingHeapNode leftSibling;
-	PairingHeapNode rightSibling;
+	
 	Node dataNode;
+	ArrayList<PairingHeapNode> children;
 	
 	
 	public PairingHeapNode()
 	{
-		child = null;
-		leftSibling = null;
-		rightSibling = null;
+		children = new ArrayList<PairingHeapNode>();
 		dataNode = new Node();
 	}
 }
