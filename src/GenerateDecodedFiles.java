@@ -117,7 +117,7 @@ public class GenerateDecodedFiles
 					if(tempRoot.leftChild == null && tempRoot.rightChild == null)
 					{
 						bufferedOutput.write(Integer.toString(tempRoot.data)+ "\n");
-						System.out.println("left:" + tempRoot.data);
+						//System.out.println("left:" + tempRoot.data);
 						tempRoot = huffmanRoot;
 					}
 				}
@@ -127,7 +127,7 @@ public class GenerateDecodedFiles
 						if(tempRoot.rightChild == null && tempRoot.leftChild == null)
 						{
 							bufferedOutput.write(Integer.toString(tempRoot.data)+ "\n");
-							System.out.println("right:"+tempRoot.data);
+							//System.out.println("right:"+tempRoot.data);
 							tempRoot = huffmanRoot;
 						}
 						

@@ -171,6 +171,7 @@ public class FourWayHeap
 
 		{
 			// generating code_table.txt
+			
 			PrintWriter printWriter = new PrintWriter("/home/harsha/code_table.txt", "UTF-8");
 			for(Map.Entry<Integer,StringBuilder> entry : hash.entrySet())
 			{
